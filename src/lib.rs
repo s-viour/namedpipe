@@ -7,7 +7,7 @@ use std::path::Path;
 use std::io::{self, Write, Read, Seek, SeekFrom};
 
 pub use nix::unistd;
-pub use nix::sys::stat;
+pub use nix::sys::stat::Mode;
 
 
 pub struct NamedPipe {
@@ -15,7 +15,7 @@ pub struct NamedPipe {
 }
 
 impl NamedPipe {
-	pub fn new<P: AsRef<Path>>(path: P, mode: stat::Mode) -> Result<NamedPipe> {
+	pub fn new<P: AsRef<Path>>(path: P, mode: Mode) -> Result<NamedPipe> {
 		unistd::mkfifo(path.as_ref(), mode)?;
 
 		let file = OpenOptions::new()
